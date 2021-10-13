@@ -9,7 +9,7 @@ class Response extends Component {
     }
 
     render() {
-        return this.state.response;
+        return <div data-testid="response-1">{this.state.response}</div>
     }
 }
 

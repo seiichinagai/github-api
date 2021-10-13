@@ -28,31 +28,23 @@ class Form extends Component {
                 { url: `${url}` }
             );
             Response.setState({response: JSON.stringify(res.data,null,2)})
-            // this.setState({ response: res});
             console.log(res)
-            // return await res.json();
         } else {
             Response.setState({response: 'Invalid URL'})
         }
 
     }
-    validateURL(url){
-
-        if(url.indexOf('github') < 0){
-            return false
+    validateURL (url) {
+        if (url.slice(-1) != '/') {
+            url += '/';
         }
+        let regex = /(https)(:(\/\/))(api.github.com)(\/)(repos)(\/)([\w.@:/\-~]+)(\/)([\w.@:/\-~]+)(\/)/;
 
-        try{
-            new URL(url)
-            return true;
-        } catch(urlErr){
-            return false;
-        }
+        return regex.test(url)
     }
-
-    render() {
+    render (){
         return (
-            <div>
+            <div data-testid="form-1">
                 <form onSubmit={this.handleSubmit}>
                     <label>URL:</label>
                     <input
@@ -64,10 +56,9 @@ class Form extends Component {
 
                     <button type="submit">Get Commits</button>
                 </form>
-                {/*{ this.state.response }*/}
             </div>
         );
-    }
+    };
 }
 
 export default Form;

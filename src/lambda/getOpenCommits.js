@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
     let base_url = url.substring(url.indexOf('api.'),url.indexOf('.com')+4);
     let path = url.substring(url.indexOf('.com')+4) + 'pulls';
 
-    console.log(url);
+    // console.log(url);
 
     try {
         data = (await getOpenRepos(base_url,path)).toString();
@@ -22,7 +22,7 @@ exports.handler = async (event, context) => {
     try {
         repos = JSON.parse(data);
     } catch(jsonErr){
-        console.log(jsonErr);
+        // console.log(jsonErr);
         statusCode = 400;
     }
 
@@ -74,7 +74,7 @@ function getOpenRepos(base_url,path) {
             });
         });
         req.on('error', (error) => {
-            console.log(error);
+            // console.log(error);
             reject(error);
         });
         req.end();
@@ -83,7 +83,7 @@ function getOpenRepos(base_url,path) {
 
 function getNumCommits(base_url,path,repo_num) {
 
-    console.log(base_url + path + '/' + repo_num + '/commits');
+    // console.log(base_url + path + '/' + repo_num + '/commits');
 
     return new Promise(((resolve, reject) => {
         const options = {
@@ -96,7 +96,7 @@ function getNumCommits(base_url,path,repo_num) {
             }
         }
         const req = https.request(options, (res) => {
-            console.log(res.statusCode);
+            // console.log(res.statusCode);
 
             var body = [];
             res.on('data', (d) => {
@@ -112,7 +112,7 @@ function getNumCommits(base_url,path,repo_num) {
             });
         });
         req.on('error', (error) => {
-            console.log(error);
+            // console.log(error);
             reject(error);
         });
         req.end();
